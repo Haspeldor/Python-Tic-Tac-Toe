@@ -10,6 +10,7 @@
 '''
 import math
 
+
 class Game():
 
     # initializses the game
@@ -18,8 +19,8 @@ class Game():
         self.playerTurn = True
         self.gameState = self.initializeField()
 
-
     # initializes or resets the field
+
     def initializeField(self):
         result = []
         for i in range(self.length):
@@ -27,26 +28,26 @@ class Game():
             for j in range(self.length):
                 result[i].append("-")
         return result
-        
 
     # returns array with free indexes
+
     def getFreeSpaces(self):
         result = []
         for i in range(self.length):
             for j in range(self.length):
                 if self.gameState[i][j] == "-":
-                    result.append(i * 3 + j + 1)
-        return result        
-
+                    result.append(i * self.length + j + 1)
+        return result
 
     # returns -1 if a player won the game, 0 if there is a draw, 1 if the game is not over
+
     def checkGameState(self):
         if not self.getFreeSpaces():
             return 0
 
         win = False
 
-        #horizontal
+        # horizontal
         for i in range(self.length):
             sign = self.gameState[i][0]
             if sign == "-":
@@ -57,7 +58,7 @@ class Game():
                     continue
                 win = False
                 break
-            
+
             if win == True:
                 return -1
 
@@ -66,17 +67,17 @@ class Game():
             sign = self.gameState[0][j]
             if sign == "-":
                 continue
-            win = True  
+            win = True
             for i in range(1, self.length):
                 if self.gameState[i][j] == sign:
                     continue
                 win = False
                 break
-            
+
             if win == True:
                 return -1
 
-        #vertikal
+        # vertikal
         sign = self.gameState[0][0]
         if sign != "-":
             win = True
@@ -85,7 +86,7 @@ class Game():
                     continue
                 win = False
                 break
-        
+
         if win == True:
             return -1
 
@@ -97,19 +98,19 @@ class Game():
                     continue
                 win = False
                 break
-            
+
             if win == True:
                 return -1
-        
+
         return 1
 
-
     # sets a sign at a free place, return true if it was possible
+
     def setSign(self, index):
         if index in self.getFreeSpaces():
             index -= 1
-            i = math.floor(index / 3)
-            j = index % 3
+            i = math.floor(index / self.length)
+            j = index % self.length
             if self.playerTurn:
                 self.gameState[i][j] = "X"
             else:
@@ -118,14 +119,14 @@ class Game():
 
         return False
 
-    
     # prints out the gameState
+
     def printGameState(self):
         for line in self.gameState:
             print(line)
 
-    
     # plays the game
+
     def game(self):
         while self.checkGameState() == 1:
             self.printGameState()
@@ -134,7 +135,7 @@ class Game():
                 space = input("Player X, your move: ")
             else:
                 space = input("Player O, your move: ")
-            
+
             try:
                 space = int(space)
                 if not self.setSign(space):
@@ -143,11 +144,11 @@ class Game():
                 print("Sadly, that didn't work...")
                 continue
 
-            self.playerTurn =  not self.playerTurn 
+            self.playerTurn = not self.playerTurn
 
         print("\n")
         self.printGameState()
-        
+
         if self.checkGameState() == 0:
             print("It's a draw...")
 
@@ -156,14 +157,11 @@ class Game():
                 print("Player O wins!")
             else:
                 print("Player X wins!")
-        
-
 
 
 def main():
     game = Game(3)
     game.game()
-
 
 
 if __name__ == "__main__":
