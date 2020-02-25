@@ -1,8 +1,8 @@
-# This is a short project, in which the game "Tic-Tac-Toe" can be played
-# The project is meant to be the foundation for a machine learning experiment
-
-# Game structure:
 '''
+This is a short project, in which the game "Tic-Tac-Toe" can be played
+The project is meant to be the foundation for a machine learning experiment
+
+Game structure:
 1 2 3
 4 5 6
 7 8 9
